@@ -7,7 +7,10 @@ provider "aws" {
     region = "eu-west-1"
 }
 
-resource "aws_instance" "example" {
+resource "aws_instance" "web" {
     ami = "ami-bff32ccc"
     instance_type = "t2.micro"
+    tags {
+        Name = "dokku-1"
+    }
 }
