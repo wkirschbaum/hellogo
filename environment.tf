@@ -1,6 +1,10 @@
 variable "aws_key" {}
 variable "aws_secret" {}
 
+atlas {
+    name = "wkirschbaum/happyspike-staging"
+}
+
 provider "aws" {
     access_key = "${var.aws_key}"
     secret_key = "${var.aws_secret}" 
