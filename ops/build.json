@@ -1,0 +1,34 @@
+{
+    "builders": [{
+        "type": "amazon-ebs",
+        "access_key": "${var.aws_key}",
+        "secret_key": "${var.aws_secret}",
+        "region": "eu-west-1",
+        "source_ami": "ami-bff32ccc",
+        "instance_type": "t2.micro",
+        "ssh_username": "ubuntu",
+        "ami_name": "helloworld {{timestamp}}"
+    }],
+    "push": {
+      "name": "wkirschbaum/helloworldbuild"
+    },
+    "provisioners": [
+    {
+        "type": "shell",
+        "inline": [
+            "sleep 30",
+            "sudo apt-get update",
+            "sudo apt-get install apache2 -y"
+        ]
+    }],
+    "post-processors": [
+      {
+        "type": "atlas",
+        "artifact": "wkirschbaum/helloworldami",
+        "artifact_type": "ami",
+        "metadata": {
+          "created_at": "{{timestamp}}"
+        }
+      }
+    ]
+}
